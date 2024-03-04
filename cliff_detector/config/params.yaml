@@ -1,15 +1,15 @@
-output_frame_id: camera_depth_frame
+output_frame_id: tof_link
 rate: 10
-range_min: 0.5
-range_max: 5.0
-sensor_mount_height: 0.55
+range_min: 0.2
+range_max: 2.5
+sensor_mount_height: 0.2
 sensor_tilt_angle: 15.0
 
 publish_depth: true
 cam_model_update: false
-used_depth_height: 400
-block_size: 16
-block_points_thresh: 3
-depth_img_step_row: 8
-depth_img_step_col: 8
-ground_margin: 0.05
+used_depth_height: 100
+block_size: 4
+block_points_thresh: 2
+depth_img_step_row: 1
+depth_img_step_col: 1
+ground_margin: 0.1

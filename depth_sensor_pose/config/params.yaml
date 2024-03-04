@@ -1,13 +1,13 @@
 rate: 1.0
-range_min: 0.5
-range_max: 8.0
-mount_height_min: 0.7
-mount_height_max: 1.0
-tilt_angle_min: 30.0
-tilt_angle_max: 35.0
+range_min: 0.2
+range_max: 2.5
+mount_height_min: 0.1
+mount_height_max: 0.3
+tilt_angle_min: 10.0
+tilt_angle_max: 20.0
 
 cam_model_update: false
-used_depth_height: 400
+used_depth_height: 100
 depth_img_step_row: 8
 depth_img_step_col: 8
 

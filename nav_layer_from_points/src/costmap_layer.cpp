@@ -15,15 +15,18 @@ void NavLayerFromPoints::onInitialize() {
   first_time_ = true;
 
   ros::NodeHandle nh("~/" + name_), g_nh;
-  sub_points_ = nh.subscribe("/downstairs_detector/points", 1,
-                              &NavLayerFromPoints::pointsCallback, this);
 
   rec_server_ = new dynamic_reconfigure::Server<NavLayerFromPointsConfig>(nh);
   f_ = boost::bind(&NavLayerFromPoints::configure, this, _1, _2);
   rec_server_->setCallback(f_);
+
+  sub_points_ = nh.subscribe(topic_, 1,
+                              &NavLayerFromPoints::pointsCallback, this);
 }
 
 void NavLayerFromPoints::configure(NavLayerFromPointsConfig &config, [[maybe_unused]] uint32_t level) {
+  topic_ = config.topic;
+
   points_keep_time_ = ros::Duration(config.keep_time);
   enabled_ = config.enabled;
 
@@ -83,7 +86,9 @@ void NavLayerFromPoints::updateBounds([[maybe_unused]] double origin_x,
       tpt.point.y = out_pt.point.y;
       tpt.point.z = out_pt.point.z;
 
-      tpt.header.stamp = pt.header.stamp;
+      // tpt.header.stamp = pt.header.stamp;
+      tpt.header.stamp = ros::Time::now();
+
       //s << " ( " << tpt.point.x << " , " << tpt.point.y << " , " << tpt.point.z << " ) ";
       transformed_points_.push_back(tpt);
     }
@@ -121,11 +126,11 @@ void NavLayerFromPoints::updateBounds([[maybe_unused]] double origin_x,
     last_max_x_ = c;
     last_max_y_ = d;
   }
-  std::ostringstream s;
-  s << " list_size = " << transformed_points_.size() << "   ";
-  s << " min_x = " << *min_x << " max_x = " << *max_x <<
-        " min_y = " << *min_y << " max_y = " << *max_y << "      ";
-  ROS_INFO_STREAM_THROTTLE(2,"transformed_points = " << s.str());
+  // std::ostringstream s;
+  // s << " list_size = " << transformed_points_.size() << "   ";
+  // s << " min_x = " << *min_x << " max_x = " << *max_x <<
+  //       " min_y = " << *min_y << " max_y = " << *max_y << "      ";
+  // ROS_INFO_STREAM_THROTTLE(2,"transformed_points = " << s.str());
 
 }
 

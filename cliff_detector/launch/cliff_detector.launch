@@ -1,11 +1,38 @@
 <launch>
-  <node name	= "cliff_detector"
-				pkg		= "cliff_detector"
-				type  = "cliff_detector">
-	  	<remap from="image" to="/camera/depth/image_raw"/>
-	  	<remap from="camera_info" to="/camera/depth/camera_info"/>
+  	<!-- <node   name	= "cliff_detector"
+			pkg		= "cliff_detector"
+			type    = "cliff_detector">
+	  	<remap from="image" to="/metasense/depth/image_raw"/>
+	  	<remap from="camera_info" to="/metasense/depth/camera_info"/>
       <rosparam command="load" file="$(find cliff_detector)/config/params.yaml"/>
-	</node>
+	</node> -->
+	<group ns="left">
+		<node   name	= "cliff_detector"
+				pkg		= "cliff_detector"
+				type    = "cliff_detector">
+			<remap from="image" to="/metasense_left/depth/image_raw"/>
+			<remap from="camera_info" to="/metasense_left/depth/camera_info"/>
+			<rosparam command="load" file="$(find cliff_detector)/config/params.yaml"/>
+		</node>
+	</group>
+	<group ns="right">
+		<node   name	= "cliff_detector"
+				pkg		= "cliff_detector"
+				type    = "cliff_detector">
+			<remap from="image" to="/metasense_right/depth/image_raw"/>
+			<remap from="camera_info" to="/metasense_right/depth/camera_info"/>
+			<rosparam command="load" file="$(find cliff_detector)/config/params.yaml"/>
+		</node>
+	</group>
+	<group ns="front">
+		<node   name	= "cliff_detector"
+				pkg		= "cliff_detector"
+				type    = "cliff_detector">
+			<remap from="image" to="/metasense_front/depth/image_raw"/>
+			<remap from="camera_info" to="/metasense_front/depth/camera_info"/>
+			<rosparam command="load" file="$(find cliff_detector)/config/params.yaml"/>
+		</node>
+	</group>
 </launch>
 
 

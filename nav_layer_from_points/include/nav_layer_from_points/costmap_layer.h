@@ -69,6 +69,8 @@ protected: // Protected fields
   double last_min_x_, last_min_y_, last_max_x_, last_max_y_;
 
 private:
+  std::string topic_;
+
   // ROS parameters configurated with config file or dynamic_reconfigure
   double point_radius_;
   double robot_radius_;

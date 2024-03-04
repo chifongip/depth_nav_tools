@@ -209,7 +209,9 @@ class CliffDetector {
   /// Class for managing sensor_msgs/CameraInfo messages
   image_geometry::PinholeCameraModel camera_model_;
   /// Calculated distances to ground for every row of depth image in mm
-  std::vector<unsigned int> dist_to_ground_;
+  // std::vector<unsigned int> dist_to_ground_;
+  std::vector<double> dist_to_ground_;
+  
   /// Calculated sensor tilt compensation factors
   std::vector<double> tilt_compensation_factor_;
 
