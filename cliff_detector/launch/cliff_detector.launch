@@ -1,12 +1,13 @@
 <launch>
-  	<!-- <node   name	= "cliff_detector"
+  	<node   name	= "cliff_detector"
 			pkg		= "cliff_detector"
 			type    = "cliff_detector">
-	  	<remap from="image" to="/metasense/depth/image_raw"/>
-	  	<remap from="camera_info" to="/metasense/depth/camera_info"/>
-      <rosparam command="load" file="$(find cliff_detector)/config/params.yaml"/>
-	</node> -->
-	<group ns="left">
+	  	<remap from="image" to="/sipeed_tof_ms_a010_ros_topic_publisher/ttyUSB0/depth/image_raw"/>
+	  	<remap from="camera_info" to="/sipeed_tof_ms_a010_ros_topic_publisher/ttyUSB0/depth/camera_info"/>
+      	<rosparam command="load" file="$(find cliff_detector)/config/params.yaml"/>
+	</node>
+	<node pkg="tf" type="static_transform_publisher" name="tof_link_to_base_link" args="0.22 0 0.2 0 0 0 1 base_link tof_link 100" />
+	<!-- <group ns="left">
 		<node   name	= "cliff_detector"
 				pkg		= "cliff_detector"
 				type    = "cliff_detector">
@@ -32,7 +33,7 @@
 			<remap from="camera_info" to="/metasense_front/depth/camera_info"/>
 			<rosparam command="load" file="$(find cliff_detector)/config/params.yaml"/>
 		</node>
-	</group>
+	</group> -->
 </launch>
 
 
