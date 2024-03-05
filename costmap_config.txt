@@ -1,0 +1,25 @@
+cliff_layer_right:
+  topic: /right/cliff_detector/points
+  enabled: true
+  keep_time: 5.0
+  point_radius: 0.01
+  robot_radius: 0.5
+
+cliff_layer_left:
+  topic: /left/cliff_detector/points
+  enabled: true
+  keep_time: 5.0
+  point_radius: 0.01
+  robot_radius: 0.5
+
+cliff_layer_front:
+  topic: /front/cliff_detector/points
+  enabled: true
+  keep_time: 5.0
+  point_radius: 0.01
+  robot_radius: 0.5
+
+
+- {name: cliff_layer_right, type: "nav_layer_from_points::NavLayerFromPoints"}
+- {name: cliff_layer_left, type: "nav_layer_from_points::NavLayerFromPoints"}
+- {name: cliff_layer_front, type: "nav_layer_from_points::NavLayerFromPoints"}
