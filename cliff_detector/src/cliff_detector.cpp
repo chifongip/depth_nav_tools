@@ -47,6 +47,9 @@ void CliffDetector::detectCliff(const sensor_msgs::ImageConstPtr& depth_msg,
   else if (depth_msg->encoding == sensor_msgs::image_encodings::TYPE_32FC1) {
     findCliffInDepthImage<float>(depth_msg);
   }
+  else if (depth_msg->encoding == sensor_msgs::image_encodings::TYPE_8UC1) {
+    findCliffInDepthImage<uint8_t>(depth_msg);
+  }
   else {
     std::stringstream ss;
     ss << "Depth image has unsupported encoding: " << depth_msg->encoding;
@@ -299,6 +302,10 @@ void CliffDetector::findCliffInDepthImage(const sensor_msgs::ImageConstPtr &dept
           else if (typeid(T) == typeid(float)) {
             d = static_cast<float>(data[row_size * row + col]);
           }
+          else if (typeid(T) == typeid(uint8_t)) {
+            unsigned depth_raw_mm = static_cast<unsigned>(data[row_size * row + col]);
+            d = std::pow((static_cast<float>(depth_raw_mm) / 5.1), 2) / 1000.0;
+          }
 
           // Check if distance to point is greater than distance to ground plane
           if (d > (dist_to_ground_[row] + ground_margin_) && d > range_min_ && d < range_max_) {
@@ -372,5 +379,6 @@ void CliffDetector::findCliffInDepthImage(const sensor_msgs::ImageConstPtr &dept
 
 template void CliffDetector::findCliffInDepthImage<uint16_t>(const sensor_msgs::ImageConstPtr&);
 template void CliffDetector::findCliffInDepthImage<float>(const sensor_msgs::ImageConstPtr&);
+template void CliffDetector::findCliffInDepthImage<uint8_t>(const sensor_msgs::ImageConstPtr&);
 
 } // namespace cliff_detector
